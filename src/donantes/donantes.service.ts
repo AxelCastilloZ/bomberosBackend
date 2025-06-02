@@ -1,39 +1,43 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Donante } from './entities/donante.entity';
 import { CreateDonanteDto } from './dto/create-donante.dto';
 import { UpdateDonanteDto } from './dto/update-donante.dto';
 
 @Injectable()
 export class DonantesService {
-  private donantes: Donante[] = [];
+  constructor(
+    @InjectRepository(Donante)
+    private readonly donanteRepository: Repository<Donante>,
+  ) {}
 
-  create(dto: CreateDonanteDto) {
-    const nuevo = { ...dto };
-    this.donantes.push(nuevo);
-    return nuevo;
+  async create(dto: CreateDonanteDto): Promise<Donante> {
+    const nuevo = this.donanteRepository.create(dto);
+    return this.donanteRepository.save(nuevo);
   }
 
-  findAll() {
-    return this.donantes;
+  async findAll(): Promise<Donante[]> {
+    return this.donanteRepository.find();
   }
 
-  findOne(id: string) {
-    const found = this.donantes.find(d => d.id === id);
-    if (!found) throw new NotFoundException('Donante no encontrado');
-    return found;
+  async findOne(id: string): Promise<Donante> {
+    const donante = await this.donanteRepository.findOneBy({ id });
+    if (!donante) {
+      throw new NotFoundException(`Donante con ID "${id}" no encontrado`);
+    }
+    return donante;
   }
 
-  update(id: string, dto: UpdateDonanteDto) {
-    const index = this.donantes.findIndex(d => d.id === id);
-    if (index === -1) throw new NotFoundException('Donante no encontrado');
-
-    this.donantes[index] = { ...this.donantes[index], ...dto };
-    return this.donantes[index];
+  async update(id: string, dto: UpdateDonanteDto): Promise<Donante> {
+    const donante = await this.findOne(id);
+    const actualizado = Object.assign(donante, dto);
+    return this.donanteRepository.save(actualizado);
   }
 
-  remove(id: string) {
-    const index = this.donantes.findIndex(d => d.id === id);
-    if (index === -1) throw new NotFoundException('Donante no encontrado');
-    return this.donantes.splice(index, 1)[0];
+  async remove(id: string): Promise<Donante> {
+    const donante = await this.findOne(id);
+    await this.donanteRepository.remove(donante);
+    return donante;
   }
 }
