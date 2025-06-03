@@ -2,21 +2,19 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+import { DonantesModule } from './donantes/donantes.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { DonantesModule } from './donantes/donantes.module';
+import { RolesModule } from './roles/roles.module';
+import { SeederModule } from './seeder/seeder.module';
 
-import { Donante } from './donantes/entities/donante.entity';
 @Module({
-  
   imports: [
-    
     ConfigModule.forRoot({
       isGlobal: true,
     }),
 
     TypeOrmModule.forRootAsync({
-      
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
@@ -26,15 +24,17 @@ import { Donante } from './donantes/entities/donante.entity';
         username: configService.get<string>('DATABASE_USER', 'root'),
         password: configService.get<string>('DATABASE_PASSWORD', ''),
         database: configService.get<string>('DATABASE_NAME', 'bomberosNosara'),
-        entities: [Donante],
         synchronize: false,
+        dropSchema:false,
+        autoLoadEntities: true, 
       }),
     }),
 
-
+    DonantesModule,
     AuthModule,
     UsersModule,
-    DonantesModule,
+    RolesModule,
+    SeederModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}
