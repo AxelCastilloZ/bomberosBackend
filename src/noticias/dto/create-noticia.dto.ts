@@ -1,6 +1,6 @@
 import { IsString, IsUrl, IsDate } from 'class-validator';
 
-export class Noticia {
+export class CreateNoticiaDto {
   @IsString()
   id: string;
 
