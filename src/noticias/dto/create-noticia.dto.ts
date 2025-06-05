@@ -1,0 +1,18 @@
+import { IsString, IsUrl, IsDate } from 'class-validator';
+
+export class Noticia {
+  @IsString()
+  id: string;
+
+  @IsString()
+  titulo: string;
+
+  @IsString()
+  descripcion: string;
+
+  @IsUrl()
+  url: string;
+
+  @IsDate()
+  fecha: string;
+}

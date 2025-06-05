@@ -25,8 +25,8 @@ import { SeederModule } from './seeder/seeder.module';
         password: configService.get<string>('DATABASE_PASSWORD', ''),
         database: configService.get<string>('DATABASE_NAME', 'bomberosNosara'),
         synchronize: false,
-        dropSchema:false,
-        autoLoadEntities: true, 
+        dropSchema: false,
+        autoLoadEntities: true,
       }),
     }),
 
