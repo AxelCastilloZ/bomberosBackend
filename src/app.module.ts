@@ -40,3 +40,4 @@ import { NoticiaModule } from './noticias/noticia.module';
   ],
 })
 export class AppModule {}
+
