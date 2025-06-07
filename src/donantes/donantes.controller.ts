@@ -19,8 +19,8 @@ export class DonantesController {
   }
 
 
-  
- 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(RoleEnum.SUPERUSER, RoleEnum.ADMIN)
   @Post()
   create(@Body() dto: CreateDonanteDto): Promise<Donante> {
     return this.donantesService.create(dto);
