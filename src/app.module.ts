@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
 import { SeederModule } from './seeder/seeder.module';
+import { NoticiaModule } from './noticias/noticia.module';
 
 @Module({
   imports: [
@@ -25,12 +26,13 @@ import { SeederModule } from './seeder/seeder.module';
         password: configService.get<string>('DATABASE_PASSWORD', ''),
         database: configService.get<string>('DATABASE_NAME', 'bomberosNosara'),
         synchronize: true,
-        dropSchema:true,
-        autoLoadEntities: true, 
+        dropSchema: true,
+        autoLoadEntities: true,
       }),
     }),
 
     DonantesModule,
+    NoticiaModule,
     AuthModule,
     UsersModule,
     RolesModule,
@@ -38,3 +40,4 @@ import { SeederModule } from './seeder/seeder.module';
   ],
 })
 export class AppModule {}
+

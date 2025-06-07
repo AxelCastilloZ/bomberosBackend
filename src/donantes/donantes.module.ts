@@ -6,7 +6,7 @@ import { DonantesController } from './donantes.controller';
 import { Donante } from './entities/donante.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Donante])], 
+  imports: [TypeOrmModule.forFeature([Donante])],
   controllers: [DonantesController],
   providers: [DonantesService],
 })
