@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
 import { SeederModule } from './seeder/seeder.module';
+import { SugerenciaModule } from './suggestion/suggestion.module';
 
 @Module({
   imports: [
@@ -24,8 +25,8 @@ import { SeederModule } from './seeder/seeder.module';
         username: configService.get<string>('DATABASE_USER', 'root'),
         password: configService.get<string>('DATABASE_PASSWORD', ''),
         database: configService.get<string>('DATABASE_NAME', 'bomberosNosara'),
-        synchronize: true,
-        dropSchema:true,
+        synchronize: false,
+        dropSchema: false,
         autoLoadEntities: true, 
       }),
     }),
@@ -35,6 +36,7 @@ import { SeederModule } from './seeder/seeder.module';
     UsersModule,
     RolesModule,
     SeederModule,
+    SugerenciaModule,
   ],
 })
 export class AppModule {}
