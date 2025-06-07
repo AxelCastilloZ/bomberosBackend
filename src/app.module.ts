@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
 import { SeederModule } from './seeder/seeder.module';
 import { NoticiaModule } from './noticias/noticia.module';
+import { SugerenciaModule } from './suggestion/suggestion.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { NoticiaModule } from './noticias/noticia.module';
     UsersModule,
     RolesModule,
     SeederModule,
+    SugerenciaModule,
   ],
 })
 export class AppModule {}
