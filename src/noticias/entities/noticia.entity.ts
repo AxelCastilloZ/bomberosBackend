@@ -11,7 +11,7 @@ export class Noticia {
   @Column({ type: 'text' })
   descripcion: string;
 
-  @Column()
+  @Column({ length: 1000 })
   url: string;
 
   @Column()

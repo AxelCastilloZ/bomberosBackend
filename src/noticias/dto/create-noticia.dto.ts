@@ -13,6 +13,6 @@ export class CreateNoticiaDto {
   @IsUrl()
   url: string;
 
-  @IsDate()
+  @IsString()
   fecha: string;
 }
